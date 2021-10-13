@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+	<t t-extend="PaymentScreenWidget">
+        <t t-jquery=".next" t-operation="before">
+        	<t t-if='widget.pos.config.send_sms'>
+		        <span class='button send_sms' style="right: 0;margin-right: 150px;">
+		            Send Sms
+		            <i class='fa fa-sms'></i>
+		        </span>
+		    </t>
+        </t>
+    </t>
+</templates>

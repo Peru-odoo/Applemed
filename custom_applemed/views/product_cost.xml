@@ -1,0 +1,30 @@
+<odoo>
+	<!-- add display cost in product master -->
+	<record id="product_template_form_view_add_display_cost" model="ir.ui.view">
+		<field name="name">product.template.form.view</field>
+		<field name="model">product.template</field>
+		<field name="inherit_id" ref="product.product_template_form_view"/>
+		<field name="arch" type="xml">
+			<!-- add sdisplay cost -->
+			<xpath expr="//sheet/notebook/page[@name='general_information']/group/group/div[@name='standard_price_uom']" position="after">
+				<label for="display_cost_price"/>
+				<div name="display_cost_uom" class="o_row">
+					<field name="display_cost_price" widget="monetary" options="{'currency_field': 'cost_currency_id', 'field_digits': True}"/>
+					<span groups="uom.group_uom" class="oe_read_only">per
+						<field name="uom_name"/>
+					</span>
+				</div>
+			</xpath>
+
+			<!-- assign group to standard_price label -->
+			<xpath expr="//sheet/notebook/page[@name='general_information']/group/group[@name='group_standard_price']/label[@for='standard_price']" position="attributes">
+				<attribute name="groups">sales_team.group_sale_manager</attribute>
+			</xpath>
+
+			<!-- assign group to standard_price field -->
+			<xpath expr="//sheet/notebook/page[@name='general_information']/group/group[@name='group_standard_price']/div[@name='standard_price_uom']/field[@name='standard_price']" position="attributes">
+				<attribute name="groups">sales_team.group_sale_manager</attribute>
+			</xpath>
+		</field>    
+	</record>
+</odoo>

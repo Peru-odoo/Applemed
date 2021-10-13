@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<!-- add branch in sale.order quotation -->
+	<record id="sale_order_quot_form_view_add_branch" model="ir.ui.view">
+		<field name="name">sale.order.form.view</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>	
+		<field name="arch" type="xml">
+			<!-- hide and replace analyctic accounting -->
+			<xpath expr="//field[@name='analytic_account_id']" position="attributes">
+				<attribute name="invisible">1</attribute>										
+			</xpath>
+			<!-- hide and replace warehouse -->
+			<xpath expr="//field[@name='warehouse_id']" position="attributes">
+				<attribute name="invisible">1</attribute>										
+			</xpath>
+			<!-- add branch -->
+			<xpath expr="//sheet/group/group/field[@name='payment_term_id']" position="after">
+				<field name="branch_id"/>
+				<field name="analytic_account_id" context="{'default_partner_id':partner_invoice_id, 'default_name':name}" groups="analytic.group_analytic_accounting" force_save="1" readonly="1"/>
+				<field name="warehouse_id" options="{'no_create': True}" groups="stock.group_stock_multi_warehouses" force_save="1" readonly="1"/>
+			</xpath>
+		</field>	
+	</record>
+
+	<!-- add branch in sale.order order -->
+	<record id="sale_order_order_form_view_add_branch" model="ir.ui.view">
+		<field name="name">sale.order.form.view</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="custom_applemed.view_order_form2"/>	
+		<field name="arch" type="xml">
+			<!-- hide and replace analyctic accounting -->
+			<xpath expr="//field[@name='analytic_account_id']" position="attributes">
+				<attribute name="invisible">1</attribute>										
+			</xpath>
+			<!-- hide and replace warehouse -->
+			<!-- <xpath expr="//field[@name='warehouse_id']" position="attributes">
+				<attribute name="invisible">1</attribute>										
+			</xpath> -->
+			<!-- add branch -->
+			<xpath expr="//sheet/group/group/field[@name='payment_term_id']" position="after">
+				<field name="branch_id"/>
+				<field name="analytic_account_id" context="{'default_partner_id':partner_invoice_id, 'default_name':name}" groups="analytic.group_analytic_accounting" force_save="1" readonly="1"/>
+				<field name="warehouse_id" options="{'no_create': True}" groups="stock.group_stock_multi_warehouses" force_save="1" readonly="1"/>
+			</xpath>
+		</field>	
+	</record>
+
+	<!-- add branch group_by -->
+	<record id="sale_order_seacrh_view_add_branch" model="ir.ui.view">
+		<field name="name">sale.order.seacrh.view</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_sales_order_filter"/>
+		<field name="arch" type="xml">
+			<xpath expr="//search/field[@name='partner_id']" position="after">
+				<field name="branch_id"></field>
+			</xpath>
+			<xpath expr="//search/group/filter[@name='salesperson']" position="after">
+				<filter string="Branches" name="sale_branch_manager" domain="[]" context="{'group_by':'branch_id'}"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>

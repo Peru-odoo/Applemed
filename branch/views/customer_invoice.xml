@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<!-- add branch in account.move -->
+	<record id="purchase_order_form_view_add_branch" model="ir.ui.view">
+		<field name="name">account.move.form.view</field>
+		<field name="model">account.move</field>
+		<field name="inherit_id" ref="account.view_move_form"/>	
+		<field name="arch" type="xml">
+			<xpath expr="//sheet/group/group/field[@name='invoice_date']" position="after">
+				<field name="branch_id"/>
+				<field name="analytic_account_id" groups="analytic.group_analytic_accounting" force_save="1" readonly="1"/>
+				<field name="warehouse_id" options="{'no_create': True}" groups="stock.group_stock_multi_warehouses" force_save="1" readonly="1"/>
+			</xpath>
+		</field>	
+	</record>
+
+	<!-- add branch group_by -->
+	<record id="invoice_order_seacrh_view_add_branch" model="ir.ui.view">
+		<field name="name">account.invoice.seacrh.view</field>
+		<field name="model">account.move</field>
+		<field name="inherit_id" ref="account.view_account_invoice_filter"/>
+		<field name="arch" type="xml">
+			<xpath expr="//search/field[@name='journal_id']" position="after">
+				<field name="branch_id"></field>
+			</xpath>
+			<xpath expr="//search/group/filter[@name='invoicedate']" position="after">
+				<filter string="Branches" name="invoice_branch_manager" domain="[]" context="{'group_by':'branch_id'}"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<!-- add branch details in res.users -->
+	<record id="res_users_form_view_add_branch" model="ir.ui.view">
+		<field name="name">res.users.form.view</field>
+		<field name="model">res.users</field>
+		<field name="inherit_id" ref="base.view_users_form"/>	
+		<field name="arch" type="xml">
+			<xpath expr="//sheet/notebook/page[@name='references']" position="after">
+				<page string="Branches" name="branches">
+					<group string="Branches">
+	                	<field name="branch_id" string="Default Branch"/>	
+						<field name="branch_ids" string="Allowed Branches" widget="many2many_tags" options="{'no_create': True}"/>
+					</group>
+				</page>
+			</xpath>
+		</field>	
+	</record>
+</odoo>

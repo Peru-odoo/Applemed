@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<odoo>
+        <record model="ir.ui.view" id="sms_template_form_view">
+            <field name="name">sms.template.form</field>
+            <field name="model">sms.message.template</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="sms_message_template"/>
+                            </group>
+                            <group>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_sms_template_tree_view" model="ir.ui.view">
+            <field name="name">sms.message.template</field>
+            <field name="model">sms.message.template</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+    <record model="ir.actions.act_window" id="action_sms_template">
+        <field name="name">Sms Template</field>
+        <field name="res_model">sms.message.template</field>
+        <field name="view_mode">form,tree</field>
+        <field name="view_id" ref="view_sms_template_tree_view" />
+    </record>
+
+    <menuitem name="SMS Template" id="menu_sms_template" parent="bi_sms_client_generic.menu_smsclient_administration_server" action="action_sms_template" sequence="20"/>
+
+</odoo>

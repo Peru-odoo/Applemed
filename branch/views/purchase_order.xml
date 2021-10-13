@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<!-- add branch in purchase.order -->
+	<record id="view_purchase_order_form_inherit_branch_in_purchase" model="ir.ui.view">
+		<field name="name">purchase.order.form.inherit.branch.in.purchase</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_form"/>	
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='origin']" position="after">
+				<field name="branch_id"/>
+				<field name="analytic_account_id" groups="analytic.group_analytic_accounting" force_save="1" readonly="1"/>
+				<field name="warehouse_id" options="{'no_create': True}" groups="stock.group_stock_multi_warehouses" force_save="1" readonly="1"/>
+			</xpath>
+		</field>	
+	</record>
+
+	<!-- add branch group_by -->
+	<record id="purchase_order_seacrh_view_add_branch" model="ir.ui.view">
+		<field name="name">purchase.order.seacrh.view</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_view_search"/>
+		<field name="arch" type="xml">
+			<xpath expr="//search/field[@name='partner_id']" position="after">
+				<field name="branch_id"></field>
+			</xpath>
+			<xpath expr="//search/group/filter[@name='order_date']" position="after">
+				<filter string="Branches" name="purchase_order_branch_manager" domain="[]" context="{'group_by':'branch_id'}"/>
+			</xpath>
+		</field>
+	</record>
+
+	<!-- add branch group_by -->
+	<record id="purchase_quot_seacrh_view_add_branch" model="ir.ui.view">
+		<field name="name">purchase.order.seacrh.view</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+		<field name="arch" type="xml">
+			<xpath expr="//search/field[@name='partner_id']" position="after">
+				<field name="branch_id"></field>
+			</xpath>
+			<xpath expr="//search/group/filter[@name='order_date']" position="after">
+				<filter string="Branches" name="purchase_quot_branch_manager" domain="[]" context="{'group_by':'branch_id'}"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>

@@ -1,0 +1,53 @@
+<odoo>
+	<!-- add delivery tags on stock.pickings -->
+	<record id="stock_picking_form_view_add_delivery_tag" model="ir.ui.view">
+		<field name="name">stock.picking.form.view</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_form"/>
+		<field name="arch" type="xml">
+			<!-- add delivery tag -->
+			<xpath expr="//form/sheet/group/group/field[@name='origin']" position="after">
+				<field name="delivery_tag_ids" widget="many2many_tags"/>
+			</xpath>
+		</field>    
+	</record>
+
+	<!-- add delivery tags on stock.move -->
+	<record id="stock_move_form_view_add_delivery_tag" model="ir.ui.view">
+		<field name="name">stock.move.form.view</field>
+		<field name="model">stock.move</field>
+		<field name="inherit_id" ref="stock.view_move_form"/>
+		<field name="arch" type="xml">
+			<!-- add delivery tag -->
+			<xpath expr="//form/sheet/group/group/group/field[@name='company_id']" position="after">
+				<field name="delivery_tag_ids" widget="many2many_tags"/>
+			</xpath>
+		</field>    
+	</record>
+
+	<!-- add delivery tags on StockValuationLayer -->
+	<record id="stock_valuation_layer_form_view_add_delivery_tag" model="ir.ui.view">
+		<field name="name">stock.valuation.layer.form.view</field>
+		<field name="model">stock.valuation.layer</field>
+		<field name="inherit_id" ref="stock_account.stock_valuation_layer_form"/>
+		<field name="arch" type="xml">
+			<!-- add delivery tag -->
+			<xpath expr="//form/sheet/group/group/field[@name='stock_move_id']" position="after">
+				<field name="delivery_tag_ids" widget="many2many_tags"/>
+			</xpath>
+		</field>    
+	</record>
+
+	<!-- add delivery tags on stock.scrap -->
+	<record id="stock_scrap_form_view_add_delivery_tag" model="ir.ui.view">
+		<field name="name">stock.scrap.form.view</field>
+		<field name="model">stock.scrap</field>
+		<field name="inherit_id" ref="stock.stock_scrap_form_view"/>
+		<field name="arch" type="xml">
+			<!-- add delivery tag -->
+			<xpath expr="//field[@name='company_id']" position="after">
+				<field name="delivery_tag_ids" widget="many2many_tags"/>
+			</xpath>
+		</field>    
+	</record>
+</odoo>

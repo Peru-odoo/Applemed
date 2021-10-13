@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_part_sms">
+            <field name="name">part.sms.view</field>
+            <field name="model">part.sms</field>
+            <field name="arch" type="xml">
+            	<form string="SMS Gateway - Sens SMS">
+                	<div>Mobile number must required for partner to add here...</div>
+                	<field name="partner_ids" widget="many2many_tags"/>
+	                <group colspan="4">
+						<field name="gateway"/>
+	        			<field name="sms_message_template_id"/>
+					</group>
+					<notebook>
+	                    <page string="Message">
+					    	<field name="text" colspan="4" nolabel="1" readonly="1"/>
+	                   	</page>
+	                   	<page string="Additional option">
+   		                	<group>	  	 	
+	           		          	<group>
+	   		          	        	<field name="validity"/>
+	   		          	        	<field name="classes1"/>
+	   		          	        	<field name="deferred"/>
+	   		          	        	<field name="nostop1"/>
+	           		          	</group>
+	   		          	        <group>
+		                   			<field name="priority"/>
+		                   			<field name="coding"/>
+		                   			<field name="tag"/>
+								</group>
+							</group>
+						</page>
+					</notebook>
+		            <footer>
+		                <button string="Send Mass SMS" name="sms_mass_send" type="object" class="oe_highlight"/>
+		                or
+		                <button string="Cancel" class="oe_link" special="cancel"/>
+		            </footer>
+	            </form>
+            </field>
+        </record>
+        
+
+ 		<act_window id="action_part_sms"
+ 			name="Send Mass SMS"
+            binding_model="res.partner"
+            res_model="part.sms" 
+            binding_views="list"
+            view_mode="form"
+            target="new"/>
+       
+
+        <act_window id="action_part_sale_order_sms"
+ 			name="Send Mass SMS"
+            binding_model="sale.order"
+            res_model="part.sms" 
+            binding_views="list"
+            view_mode="form"
+            target="new"/>
+
+        <act_window id="action_part_purchase_order_sms"
+ 			name="Send Mass SMS"
+            binding_model="purchase.order"
+            res_model="part.sms" 
+            binding_views="list"
+            view_mode="form"
+            target="new"/>
+
+        <act_window id="action_part_account_order_sms"
+ 			name="Send Mass SMS"
+            binding_model="account.move"
+            res_model="part.sms" 
+            binding_views="list"
+            view_mode="form"
+            target="new"/>
+
+        <act_window id="action_part_crm_order_sms"
+ 			name="Send Mass SMS"
+            binding_model="crm.lead"
+            res_model="part.sms" 
+            binding_views="list"
+            view_mode="form"
+            target="new"/>
+    </data>
+</odoo>
